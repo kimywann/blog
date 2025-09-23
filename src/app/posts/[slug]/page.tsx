@@ -59,17 +59,7 @@ export default async function PostPage({
           </time>
         </header>
 
-        <div
-          className="prose prose-lg prose-gray max-w-none
-                      prose-headings:text-gray-900 prose-headings:font-semibold
-                      prose-p:text-gray-700 prose-p:leading-relaxed
-                      prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
-                      prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
-                      prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:overflow-x-auto
-                      prose-blockquote:border-l-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:px-4 prose-blockquote:py-2
-                      prose-ul:text-gray-700 prose-ol:text-gray-700
-                      prose-li:text-gray-700 font-serif font-medium text-lg"
-        >
+        <div className="prose prose-lg prose-gray max-w-none font-serif font-medium text-xl">
           <div dangerouslySetInnerHTML={{ __html: post.htmlContent || "" }} />
         </div>
       </article>

@@ -6,9 +6,9 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 
 interface PostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -21,10 +21,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: PostPageProps["params"];
+  params: Promise<PostPageProps["params"]>;
 }): Promise<Metadata> {
   try {
-    const post = await getPostData(params.slug);
+    const { slug } = await params;
+    const post = await getPostData(slug);
     return {
       title: `${post.title}`,
       description: post.description,
@@ -40,27 +41,31 @@ export async function generateMetadata({
 export default async function PostPage({
   params,
 }: {
-  params: PostPageProps["params"];
+  params: Promise<PostPageProps["params"]>;
 }) {
   try {
-    const post = await getPostData(params.slug);
+    const { slug } = await params;
+    const post = await getPostData(slug);
 
     return (
       <article className="max-w-none">
         <section className="mb-14">
           <Header />
         </section>
-        <header className="mb-8 pb-8 border-b border-gray-200">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <header className="mb-8 pb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
             {post.title}
           </h1>
-          <time className="text-gray-500 text-sm font-mono">
+          <time className="text-gray-500 text-sm">
             {format(new Date(post.date), "MMM dd, yyyy", { locale: enUS })}
           </time>
         </header>
 
-        <div className="prose prose-lg prose-gray max-w-none font-serif font-medium text-xl">
-          <div dangerouslySetInnerHTML={{ __html: post.htmlContent || "" }} />
+        <div className="max-w-none">
+          <div
+            className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-xl prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-3 prose-ul:my-4 prose-li:my-1"
+            dangerouslySetInnerHTML={{ __html: post.htmlContent || "" }}
+          />
         </div>
       </article>
     );

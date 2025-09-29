@@ -17,13 +17,13 @@ export default async function Home() {
           <article key={slug} className="group">
             <Link href={`/posts/${slug}`} className="block">
               <div>
-                <h2 className="text-xl font-medium group-hover:text-pink-500 transition-colors">
+                <h2 className="text-2xl font-semibold group-hover:text-blue-500 transition-colors">
                   {title}
                 </h2>
                 <p className="text-gray-500 text-sm leading-relaxed">
                   {description}
                 </p>
-                <time className="text-gray-500 text-xs font-mono">
+                <time className="text-gray-500 text-xs">
                   {format(new Date(date), "MMM dd, yyyy", { locale: enUS })}
                 </time>
               </div>

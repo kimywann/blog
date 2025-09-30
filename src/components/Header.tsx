@@ -4,7 +4,10 @@ export default function Header() {
   return (
     <header>
       <nav className="flex items-center justify-between">
-        <Link href="/" className="font-medium cursor-pointer text-gray-400">
+        <Link
+          href="/"
+          className="font-medium text-2xl cursor-pointer text-gray-400"
+        >
           Kimyngwan
         </Link>
 

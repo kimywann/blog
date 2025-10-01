@@ -24,7 +24,7 @@
 
 /* 인용문 스타일링 */
 .prose blockquote {
-  @apply border-l-4 border-blue-500 pl-4 py-2 my-4 text-gray-700;
+  @apply border-l-4 border-black pl-4 py-2 my-4 text-gray-700;
 }
 
 .prose blockquote p {

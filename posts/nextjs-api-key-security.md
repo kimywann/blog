@@ -1,7 +1,7 @@
 ---
-title: "Next.js에서 API Key 안전하게 관리하기"
+title: "Next.js Route Handler로 API Key 안전하게 관리하기"
 date: "2025-08-26"
-description: "API 키 보안과 서버/클라이언트 컴포넌트 경계 이해하기"
+description: "서버/클라이언트 경계에서 발생하는 API Key 보안 문제와 이를 해결한 Next.js Route Handler 활용 사례"
 ---
 
 > 서버와 클라이언트 컴포넌트 경계를 이해하고,

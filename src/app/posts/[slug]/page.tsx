@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { getPostData, getSortedPostsData } from "@/lib/posts";
 import type { Metadata } from "next";
-import Header from "@/components/Header";
 
 interface PostPageProps {
   params: Promise<{
@@ -49,9 +48,6 @@ export default async function PostPage({
 
     return (
       <article className="max-w-none">
-        <section className="mb-14">
-          <Header />
-        </section>
         <header className="mb-8 pb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
             {post.title}

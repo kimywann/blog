@@ -159,12 +159,12 @@ export default defineConfig({
       output: {
         // manualChunks 설정 - 빌드 시점에 특정 라이브러리를 별도 파일로 분리해요.
         manualChunks: {
-          // 'vendor' 청크: React, ReactDOM 등 모든 페이지에서 공통으로 사용하는 핵심 라이브러리
+          // 큰 라이브러리들을 별도 청크로 분리
           vendor: ["react", "react-dom", "react-router-dom"],
-          // 'supabase' 청크: Supabase 관련 코드
           supabase: ["@supabase/supabase-js", "@supabase/auth-helpers-react"],
-          // 'ui' 청크: Recharts, Tailwind UI 컴포넌트 등 UI 관련 라이브러리
-          ui: ["recharts", "sonner", "clsx"],
+          query: ["@tanstack/react-query"],
+          ui: ["sonner", "clsx"],
+          chart: ["recharts"],
         },
       },
     },

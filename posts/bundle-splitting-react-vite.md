@@ -1,25 +1,23 @@
 ---
-title: "대규모 번들 파일로 인한 초기 렌더링 지연 문제"
+title: "React.lazy + Vite manualChunks를 활용한 번들 최적화"
 date: "2025-09-10"
-description: "React.lazy, Suspense, Vite manualChunks를 활용해 LCP와 라우팅 지연을 개선한 사례를 정리"
+description: "번들 최적화로 LCP와 라우팅 지연을 개선한 사례를 정리"
 ---
 
 ### 들어가며
 
-초기 로딩 시 3MB가 넘는 대규모 번들 파일 때문에
+초기 로딩 시 3MB가 넘는 번들 파일 때문에
 LCP(Largest Contentful Paint)가 4초 이상 지연되는 문제가 있었습니다.
 wisesub 프로젝트에서는 Recharts시각화 라이브러리, Supabase 관련 라이브러리 등
-대용량 라이브러리들을 초기 로딩 시 모두 번들에 포함되어 있었습니다.
+대용량 라이브러리들을 초기 로딩 시 메인 번들에 포함되어 있었습니다.
 
 ![번들 최적화 전](/images/posts/bundle-splitting-react-vite/bundle-before.png)
 
-이렇게 되면 아래와 같은
+이렇게 되면 아래와 같은 문제가 발생합니다.
 
 - 웹사이트 초기 로딩 시 엄청난 양의 데이터를 다운로드
 - 사용하지 않는 페이지의 리소스까지 무조건 로딩
 - 초기 로딩 속도 느려짐
-
-문제가 발생합니다.
 
 이 문제를 해결하기위해 3가지 과정을 거치게 되었습니다.
 
@@ -183,12 +181,13 @@ export default defineConfig({
 
 React.lazy는 필요한 시점에 필요한 페이지만 불러오기, manualChunks는 공통으로 자주 쓰이는 코드 묶어서 효율적으로 캐싱하기로 이해할 수 있습니다.
 
+### 2. 지표 개선
+
+![번들 최적화 후](/images/posts/bundle-splitting-react-vite/bundle-after.png)
+
+- LCP (Largest Contentful Paint) 4.6초 → 0.4초
+- FCP(First Contentful Paint) 2.1초 → 0.4초
+
 ### 마치며
 
-이번 사례를 통해 React와 Vite를 활용한 대규모 번들 최적화 방법을 정리했습니다.
-
-- React.lazy + Suspense로 페이지 단위 코드 스플리팅을 적용해, 사용자가 실제로 필요할 때만 리소스를 불러오도록 개선했습니다.
-- 중첩 라우팅으로 공통 레이아웃 중복을 제거하여 코드 가독성과 유지보수성을 높였습니다.
-- Vite manualChunks를 통해 공통 라이브러리를 별도 청크로 분리하고 캐시를 활용하여, 라우팅 지연과 LCP를 효과적으로 개선했습니다.
-
-그 결과, LCP는 4.6초 → 0.4초, 최상 경로 최대 지연 속도는 669ms → 162ms로 단축되어 사용자 체감 성능이 크게 향상되었습니다.
+이번 최적화 경험을 통해 단순히 지표 개선에 그치지 않고, 앞으로는 프로젝트 초기 설계 단계에서부터 이런 번들 전략을 같이 고민해야겠다는 점이 가장 큰 배움이었습니다.

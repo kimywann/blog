@@ -1,5 +1,5 @@
 ---
-title: "내가 쓰는 VS Code 확장"
+title: "VS Code 확장 도구"
 date: "2025-09-29"
 description: "프론트엔드 개발에 유용한 VS Code 확장 도구를 필수/선택으로 나눠 정리"
 ---

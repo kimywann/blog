@@ -1,5 +1,5 @@
 ---
-title: "React 코드드 스플리팅"
+title: "React 코드 스플리팅"
 date: "2025-09-10"
 description: "React에서 코드 스플리팅으로 최적화한 경험 정리"
 ---

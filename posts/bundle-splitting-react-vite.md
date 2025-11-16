@@ -1,7 +1,7 @@
 ---
-title: "React 웹 성능 개선: 코드 스플리팅"
+title: "React 코드드 스플리팅"
 date: "2025-09-10"
-description: "React에서 코드 스플리팅으로 최적화해 LCP/FCP를 개선한 과정을 정리합니다"
+description: "React에서 코드 스플리팅으로 최적화한 경험 정리"
 ---
 
 ### 들어가며

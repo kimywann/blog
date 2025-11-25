@@ -89,7 +89,28 @@ WCAG AA 기준(4.5:1)을 충족하지 못하는 색상 조합이 있었습니다
 
 - WCAG AA 기준(4.5:1)을 충족하도록 색상을 조정했습니다.
 
+## 접근성 기준 이해하기
+
+### 색상 대비율이란?
+
+색상 대비율은 배경색과 텍스트 색상이 얼마나 구별되는지를 숫자로 나타낸 것입니다. 쉽게 말해, "이 글자가 배경 위에서 얼마나 잘 보이는가"를 측정하는 지표입니다.
+
+**대비율 계산 방식**
+
+- **1:1** = 배경과 글자가 같은 색 (아예 안 보임)
+- **4.5:1** = 웹 접근성 기본 기준선
+- **7:1** = 더 엄격한 기준
+- **21:1** = 최대 대비율 (완전한 흰색과 검은색)
+
 <br />
+
+**실제로 느껴보는 대비율**
+
+<img src="/images/posts/improve-accessibility-lighthouse/compare.png" width="550px" style="display: block; margin: 0 auto;" />
+
+<br />
+
+## 해결과정
 
 #### InfoBadge 색상 개선
 
@@ -144,22 +165,6 @@ const badgeThemes = {
 
 - `red-400` → `red-600` (대비 개선)
 - `text-white`로 명확한 대비 확보
-
-## 접근성 기준 이해하기
-
-### 색상 대비율이란?
-
-색상 대비율(Contrast Ratio)은 배경색과 텍스트 색상의 밝기 차이를 나타내는 수치입니다. 대비율이 높을수록 텍스트가 더 잘 보이고 읽기 쉬워집니다.
-
-**대비율 계산 방식**
-
-- 1:1 = 같은 색상 (완전히 읽을 수 없음)
-- 4.5:1 = WCAG AA 기준 (일반 텍스트)
-- 7:1 = WCAG AAA 기준 (일반 텍스트)
-
-**실제 예시**
-
-<img src="/images/posts/improve-accessibility-lighthouse/compare.png" width="550px" style="display: block; margin: 0 auto;" />
 
 <br />
 

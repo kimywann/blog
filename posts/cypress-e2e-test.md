@@ -172,6 +172,23 @@ cy.selectInDialog("select-new-field", "새로운 옵션");
 
 2. 로그인이나 셀렉트 박스 동작이 변경되어도 commands.ts 파일만 수정하면 모든 테스트에 반영됩니다.
 
+### 부수효과
+
+E2E 테스트를 작성하고 실행하는 과정에서 예상치 못한 부수 효과를 얻었습니다. 테스트 실행 중 Cypress Test Runner의 스냅샷을 확인하던 중, 프로필 등록 폼의 희망 도메인 셀렉트 UI 레이아웃이 흐트러진 것을 발견했습니다.
+
+<div style="display: flex; gap: 30px; justify-content: center; align-items: flex-start; margin: 20px 0;">
+  <div style="text-align: center;">
+    <img src="/images/posts/cypress-e2e-test/before.png" width="500px" style="display: block; margin: 0 auto;" />
+    <p style="margin-top: 10px; font-size: 14px; color: #666;">Before</p>
+  </div>
+  <div style="text-align: center;">
+    <img src="/images/posts/cypress-e2e-test/after.png" width="500px" style="display: block; margin: 0 auto;" />
+    <p style="margin-top: 10px; font-size: 14px; color: #666;">After</p>
+  </div>
+</div>
+
+기능 테스트만으로는 놓치기 쉬운 부분이었는데, Cypress가 각 단계마다 스냅샷을 저장해주니까 테스트하면서 UI를 직접 확인할 수 있어서 문제를 빠르게 찾고 해결할 수 있었습니다.
+
 ### 마무리
 
-처음에는 초기 설정에 시간을 써야해서. 이 시간에 그냥 수동으로 검증하면 더 빠르지않을까 싶었습니다.. 테스트를 왜하는거지 싶었는데 직접 해보니 초기 설정만 해놓으면 이후 검증에 들이는 시간이 줄어드는 것을 체감할 수 있었습니다.
+처음에는 초기 설정에 시간을 써야해서. 이 시간에 그냥 수동으로 검증하면 더 빠르지않을까 싶었습니다.. e2e 테스트를 왜하는거지 싶었는데 직접 해보니 초기 설정만 해놓으면 이후 검증에 들이는 시간이 줄어드는 것을 체감할 수 있었습니다. 또한, e2e 테스트 실행하면서 Cypress Test Runner 스냅샷 보다가 UI 레이아웃 깨진 것도 발견했습니다. 기능 테스트만으로는 못 찾았을 시각적 회귀 문제였는데, 테스트 돌리면서 자연스럽게 UI 확인하게 되어서 문제 빨리 찾고 고칠 수 있었습니다.

@@ -7,19 +7,19 @@
 
 /* prose 클래스 내의 헤더들 */
 .prose h1 {
-  @apply text-4xl font-bold text-gray-900 mt-10 mb-10 pb-2 border-b border-gray-200;
+  @apply text-4xl font-bold text-black mt-10 mb-10 pb-2 border-b border-gray-200;
 }
 
 .prose h2 {
-  @apply text-3xl font-bold text-gray-900 mt-10 mb-10 pb-2 border-b border-gray-200;
+  @apply text-3xl font-bold text-black mt-10 mb-10 pb-2 border-b border-gray-200;
 }
 
 .prose h3 {
-  @apply text-3xl font-bold text-gray-900 mt-12 mb-8;
+  @apply text-3xl font-bold text-black mt-12 mb-8;
 }
 
 .prose h4 {
-  @apply text-lg font-semibold text-gray-900 mt-1 mb-1;
+  @apply text-lg font-semibold text-black mt-1 mb-1;
 }
 
 /* 인용문 스타일링 */
@@ -29,6 +29,10 @@
 
 .prose blockquote p {
   @apply mb-0;
+}
+
+.content-box {
+  @apply p-8 bg-[#F2F4F6] rounded-lg text-xl text-[#333D4B];
 }
 
 /* 리스트 스타일링 */
@@ -43,7 +47,7 @@
 }
 
 .prose li {
-  @apply text-gray-700 leading-relaxed;
+  @apply leading-relaxed text-[#333D4B] text-lg;
   display: list-item;
 }
 
@@ -68,17 +72,30 @@
 
 /* 전체 코드 블록 스타일 */
 .prose pre[class*="language-"] {
-  @apply p-3 rounded-md text-sm bg-slate-900;
+  @apply p-4 text-sm bg-white border rounded-lg border-gray-200;
 }
 
 /* 언어 지정된 코드 블록 기본 텍스트 */
 .prose code[class*="language-"] {
-  @apply text-sm font-mono text-white;
+  @apply text-sm text-[#333D4B] border-none bg-transparent;
 }
 
-/* 인라인 코드 (<code>) */
-.prose code {
-  @apply text-white bg-slate-900 px-1.5 py-1 rounded text-sm;
+/* 코드 블록 내부의 모든 code 요소 border 제거 */
+.prose pre code,
+.prose pre[class*="language-"] code {
+  @apply border-none bg-transparent;
+}
+
+/* 인라인 코드 (<code>) - 코드 블록이 아닌 경우만 */
+.prose p code,
+.prose li code,
+.prose h1 code,
+.prose h2 code,
+.prose h3 code,
+.prose h4 code,
+.prose td code,
+.prose th code {
+  @apply text-[#2b333d] px-0.5 py-0.5 rounded text-base border border-gray-200 bg-gray-100;
 }
 
 /* ---------------------------
@@ -92,52 +109,61 @@ PrismJS 토큰별 커스터마이징
 
 /* 키워드 (function, return, export, default, async 등) */
 .token.keyword {
-  @apply text-indigo-400;
+  @apply text-[#7C5AE3];
 }
 
 /* 함수 이름 */
 .token.function {
-  @apply text-cyan-300;
+  @apply text-green-600;
 }
 
 /* 문자열 ("text", 'abc') */
 .token.string {
-  @apply text-green-400;
+  @apply text-[#2E6BD0];
 }
 
 /* 숫자 (1, 42, 3.14) */
 .token.number {
-  @apply text-blue-400;
+  @apply text-[#2E6BD0];
 }
 
 /* 태그 이름 (<div>, <span>) */
 .token.tag {
-  @apply text-blue-400;
+  @apply text-[#2E6BD0];
 }
 
 /* 속성 이름 (type, className 등) */
 .token.attr-name {
-  @apply text-cyan-300;
+  @apply text-black;
 }
 
 /* 속성 값 ("trending") */
 .token.attr-value {
-  @apply text-green-400;
+  @apply text-[#2E6BD0];
 }
 
 /* JSX 중괄호 / 꺾쇠 괄호 ({}, <, />) */
 .token.punctuation {
-  @apply text-gray-300;
+  @apply text-black;
 }
 
 /* 클래스 / 컴포넌트 이름 */
 .token.class-name {
-  @apply text-pink-400;
+  @apply text-[#85A600];
+}
+
+.token.operator {
+  @apply text-black;
+}
+
+/* 내장 타입 (string, number, boolean 등) */
+.token.builtin {
+  @apply text-[#7C5AE3]; /* 키워드와 같은 색상 */
 }
 
 /* 일반 문단 간격 늘리기 */
 .prose p {
-  @apply leading-relaxed text-gray-700 mb-6; /* mb-6으로 문단 간격 증가 */
+  @apply leading-relaxed text-[#333D4B] text-lg mb-6; /* mb-6으로 문단 간격 증가 */
 }
 
 /* 헤더와 문단 사이 간격 */

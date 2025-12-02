@@ -49,11 +49,11 @@ export default async function PostPage({
     return (
       <article className="max-w-none">
         <header className="mb-8 pb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl font-bold lg:text-5xl text-[#333D4B] mb-4 leading-tight">
             {post.title}
           </h1>
-          <time className="text-gray-500 text-sm">
-            {format(new Date(post.date), "MMM dd, yyyy", { locale: enUS })}
+          <time className="text-gray-400 text-md">
+            {format(new Date(post.date), "yyyy년 MM월 dd일")}
           </time>
         </header>
 

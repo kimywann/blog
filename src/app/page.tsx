@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { format } from "date-fns";
 import { getSortedPostsData } from "@/lib/posts";
-import Image from "next/image";
 import fs from "fs";
 import path from "path";
 

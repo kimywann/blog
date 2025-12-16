@@ -12,6 +12,7 @@ import "prismjs/components/prism-tsx";
 import "prismjs/components/prism-css";
 import "prismjs/components/prism-json";
 import "prismjs/components/prism-bash";
+import "prismjs/components/prism-sql";
 
 // marked 설정
 marked.use({

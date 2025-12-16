@@ -4,7 +4,7 @@ date: "2025-12-12"
 description: "로컬스토리지·서버 장바구니 분리와 병합 로직 구성으로 사용자 흐름을 유지하는 저장 구조 설계 과정"
 ---
 
-## 1. 설계 배경
+## 설계 배경
 
 #### 로그인이 쇼핑 흐름을 끊으면 안 된다
 
@@ -16,7 +16,7 @@ description: "로컬스토리지·서버 장바구니 분리와 병합 로직 �
 
 <img src="/images/posts/cart-architecture-login-merge/merge-local-to-server-cart.gif" width="550px" style="display: block; margin: 0 auto;" />
 
-## 2. 장바구니 저장소 분리 전략 (localStorage ↔ Server)
+## 장바구니 저장소 분리 전략 (localStorage ↔ Server)
 
 로그인 상태에 따라 장바구니 저장 위치를 다르게 구성하였습니다.
 
@@ -43,7 +43,7 @@ description: "로컬스토리지·서버 장바구니 분리와 병합 로직 �
 const { cart, addToCart, updateQuantity, removeItem } = useCartSource();
 ```
 
-## 3. 병합 과정에서 고려한 성능 문제
+## 병합 과정에서 고려한 성능 문제
 
 로그인 순간, 로컬 장바구니와 서버 장바구니를 합쳐야 합니다. 이 과정에서 몇 가지 결정이 필요했습니다.
 
@@ -115,7 +115,7 @@ cartMap = {
 "shoe123:L"; // 신발 L 사이즈
 ```
 
-만약 이를 분리하지 않으면 수량이 잘못 합쳐지고, 심각한 버그가 발생할 수 있습니다. 그래서 DB의 UNIQUE 제약조건과 정확히 같은 기준을 key로 사용했습니다.
+만약 이를 분리하지 않으면 수량이 잘못 합쳐지고, 버그가 발생할 수 있습니다. 그래서 DB의 UNIQUE 제약조건과 정확히 같은 기준을 key로 사용했습니다.
 
 #### 로컬 장바구니 순회 및 병합
 
@@ -127,10 +127,9 @@ const serverQuantity = cartMap.get(key) ?? 0;
 const mergedQuantity = serverQuantity + item.quantity;
 ```
 
-여기서 ?? 0을 사용하는 이유는, Map에 key가 없으면 undefined가 반환되기 때문입니다. 서버에 없는 상품은 수량을 0으로 처리해서 로컬 수량만 반영하도록 했습니다.
-이 구조는 서버 조회 M + 로컬 순회 N으로 동작해 전체 병합 비용이 O(N + M) 으로 유지됩니다. 아이템 수가 늘어나더라도 로그인 시 성능이 저하되지 않는 병합 구조를 만들 수 있었습니다.
+여기서 `?? 0` 사용하는 이유는, `Map`에 key가 없으면 undefined가 반환되기 때문입니다. 서버에 없는 상품은 수량을 0으로 처리해서 로컬 수량만 반영하도록 했습니다.
 
-## 4. 로그인 시 로컬 → 서버 병합 및 중복 방지
+## 로그인 시 로컬 → 서버 병합 및 중복 방지
 
 로그인 순간 로컬 장바구니를 서버로 병합하는 과정에서 동일 상품이 서로 다른 저장소에 존재할 경우 중복 레코드가 생성되는 문제가 있었습니다.
 
@@ -157,26 +156,34 @@ UNIQUE(user_id, product_id, size)
 <br />
 <br />
 
-## 5. 유저 상태에 따른 장바구니 액션 분기 설계
+## 유저 상태에 따른 장바구니 액션 분기 설계
 
 장바구니 담기 · 수량 조절 · 삭제 는 유저 상태에 따라 저장 경로를 분기하도록 하였습니다.
 
 #### 비로그인 → 로컬 저장
 
-<img src="/images/posts/cart-architecture-login-merge/3.png" width="550px" style="display: block; margin: 0 auto;" />
+```ts
+if (!user?.id) {
+  dispatch(addItem({ ...상품정보 }));
+}
+```
 
 #### 로그인 → 서버 저장
 
-<img src="/images/posts/cart-architecture-login-merge/4.png" width="550px" style="display: block; margin: 0 auto;" />
+```ts
+await supabase.from("cart").upsert({ ...상품정보 });
+```
 
 <br />
 
-## 6. 구현 결과
+## 구현 결과
 
 - 로그인 시 로컬 장바구니가 서버 장바구니와 합쳐지도록 설계하여 사용 흐름이 끊기지 않도록 했습니다.
 - UNIQUE 제약조건과 Upsert를 적용해 동일한 상품이 여러 번 생성되는 상황을 방지했습니다.
 
-## 7. 러닝 포인트
+<br />
+
+## 러닝 포인트
 
 장바구니는 단순해 보이지만, 실제로는 로그인 전환 흐름까지 고려한 상태 설계가 필요하다는 점을 배웠습니다. 비로그인에서 로그인으로 넘어가도 사용 흐름이 자연스럽게 유지되도록 하기 위해, 내부적으로 다양한 처리 과정을 정리해야 했습니다.
 

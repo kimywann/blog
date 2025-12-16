@@ -96,7 +96,6 @@ existingCart?.forEach((item) => {
 ```
 
 이 Map의 역할은 하나입니다. "이 상품이 서버에 이미 있나?"를 답해주는 역할입니다.
-예를 들어, 변환 후 Map은 다음과 같은 형태가 됩니다.
 
 #### 왜 key를 product_id:size로 설계했는가?
 

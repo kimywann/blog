@@ -72,7 +72,7 @@ const { data: existingCart } = await supabase
 처음에는 로컬 아이템마다 서버 장바구니 배열을 순회하며 동일 상품을 찾는 방식을 떠올렸습니다.
 
 ```typescript
-// ❌ 단순 배열 비교 (O(N×M))
+// 단순 배열 비교 (O(N×M))
 serverCart.find(
   (item) =>
     item.product_id === localItem.id && item.size === localItem.selectedSize
@@ -137,7 +137,7 @@ const mergedQuantity = serverQuantity + item.quantity;
 Supabase에서 `(user_id, product_id, size)` 조합을 **UNIQUE**로 설정했습니다.
 
 ```sql
-같은 사용자가 같은 상품의 같은 사이즈를 중복으로 가질 수 없음
+-- 같은 사용자가 같은 상품의 같은 사이즈를 중복으로 가질 수 없음
 UNIQUE(user_id, product_id, size)
 ```
 

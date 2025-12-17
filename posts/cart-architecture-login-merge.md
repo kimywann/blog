@@ -72,7 +72,6 @@ const { data: existingCart } = await supabase
 처음에는 로컬 아이템마다 서버 장바구니 배열을 순회하며 동일 상품을 찾는 방식을 떠올렸습니다.
 
 ```typescript
-// 단순 배열 비교 (O(N×M))
 serverCart.find(
   (item) =>
     item.product_id === localItem.id && item.size === localItem.selectedSize
